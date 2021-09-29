@@ -12,6 +12,12 @@ router.get('/', shopController.getIndex);
 
 router.get('/products', shopController.showProducts);
 
+
+//if we have dynamic route and some specific route lets say delete (router.get('/products/delete', shopController.deleteProduct);), 
+//then that must always be before dynamic route
+//as it executes top to bottom so if gets dynamic route first, it will render as per that and not exceute to the next line
+router.get('/products/:productId', shopController.showProductDetails);
+
 router.get('/cart', shopController.getCart);
 
 router.get('/orders', shopController.getOrders);
