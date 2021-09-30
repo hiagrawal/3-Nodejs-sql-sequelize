@@ -18,6 +18,24 @@ exports.addProduct = (req, res, next) => {
     res.redirect('/');
 }
 
+//checking editMode doesn't make any sense here as we are already calling this method when user clicks on edit
+//this is just a usecase to show how to access query params
+//http://localhost:3000/admin/edit-product/12345?edit=true 
+exports.getEditProductPage = (req, res, next) => {
+    const edit = req.query.edit;
+    console.log('edit' + edit);
+    const productId = req.params.productId;
+    Product.findById(productId, (product) => {
+        res.render('admin/edit-product' , {
+            pageTitle:'Edit Product', 
+            path:'admin/edit-product', //since no such path exists so no link will be highlighted
+            editMode: edit,
+            product:product
+        });
+    })
+    
+};
+
 exports.getProducts= (req, res, next) => {
     Product.fetchAll((products) => {
         res.render('admin/products' , {
