@@ -27,15 +27,36 @@ module.exports = class Cart {
             else {
                 cart.products = [...cart.products, {id:id, qty:1}]
             }
-            cart.totalPrice = cart.totalPrice + +price;
-
+            cart.totalPrice = cart.totalPrice + +price; //+price is used to convert it into number from string
+            
             console.log(cart);
             fs.writeFile(fileNameWithPath, JSON.stringify(cart), (err) => {
                 console.log(err);
             })
         
         })
+     }
 
+     static deleteFromCart(id, productPrice){
+        fs.readFile(fileNameWithPath, (err, fileContent) => {
+            if(!err){
+                var cart = JSON.parse(fileContent);
+            
+                const existingProduct = cart.products.find(product => product.id === id);
+                if(existingProduct){
+                    const productQuantity = existingProduct.qty;
+                    cart.totalPrice = cart.totalPrice - (productPrice * productQuantity);
+
+                    const updatedProducts = cart.products.filter(product => product.id !== id);
+                    cart.products = [...updatedProducts];
+
+                    fs.writeFile(fileNameWithPath, JSON.stringify(cart), (err) => {
+                        console.log(err);
+                    })
+                }
+            }
+           
+        });
 
      }
 
