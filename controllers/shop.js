@@ -15,8 +15,11 @@ exports.showProducts = (req, res, next) => {
 }
 
 exports.showProductDetails = (req, res, next) => {
-    const prodId = req.params.productId;
-    console.log(prodId);
+    const prodId = req.params.productId; //this productId will be the same name which is passed in shop route
+    //findById is passing prodId paramter and a async function which needs to be called when it gets value of product
+    Product.findById(prodId, (product) => {
+      console.log(product);
+    });
     res.redirect('/');
 
 }
