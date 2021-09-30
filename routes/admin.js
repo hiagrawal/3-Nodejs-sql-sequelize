@@ -17,6 +17,8 @@ router.post('/add-product', adminController.addProduct);
 //so we can access 12345 using req.params and editMode using req.query
 router.get('/edit-product/:productId', adminController.getEditProductPage);
 
+router.post('/edit-product', adminController.editProduct);
+
 router.get('/products', adminController.getProducts);
 
 module.exports = router;
