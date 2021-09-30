@@ -20,6 +20,9 @@ router.get('/products/:productId', shopController.showProductDetails);
 
 router.get('/cart', shopController.getCart);
 
+//so already this get request of cart to render the page, we can have another post method to render the data
+router.post('/cart', shopController.postCart);
+
 router.get('/orders', shopController.getOrders);
 
 router.get('/checkout', shopController.getCheckout);

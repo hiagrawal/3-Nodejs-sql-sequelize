@@ -14,8 +14,14 @@
         <h2>$<%= product.price %></h2>
         <p><%= product.description %></p>
 
+        <!-- Now we need the product data on the cart page, one we saw is pasing in query paramter in product list page
+        but that is not needed here since we have POST method and with post method we get the data we pass inside the form 
+        in request body in the same way we got in add product form
+        // note, we only get the data like this if request is POST. If request is GET, we do not get the data in req body
+        //so we can make a hidden field here and pass the data whatever we want on /cart-->
         <form action="/cart" method="POST">
             <button class="btn" type="submit">Add to Cart</button>
+            <input type="hidden" name="productId" value="<%= product.id %>" />
         </form>  
 
     </main>
