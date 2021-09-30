@@ -40,11 +40,24 @@ exports.getIndex = (req, res, next) => {
   });
 }
 
+//trying to get cart items and cart items products details with the id
+//[ {productData: {"id":"0.38416663730150136","title":"Book 1","imageUrl":"https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png","price":"10.00","description":" Book 1 Description"},
+//    qty:1]
 exports.getCart = (req, res, next) => {
-  res.render('shop/cart' , {
-    pageTitle:'Your Cart', 
-    path:'cart'
-  })
+  Cart.getCartItems((cartItems) =>{
+      Product.fetchAll((products) => {
+        const cartProducts = [];
+        for(var product of cartItems.products){
+          var updatedCartProduct = products.find(p => p.id === product.id);
+          cartProducts.push({productData:updatedCartProduct, qty: product.qty})
+        }
+        res.render('shop/cart' , {
+          pageTitle:'Your Cart', 
+          path:'cart',
+          cartItems: cartProducts
+        })
+      })
+    })  
 }
 
 exports.postCart = (req, res, next) => {

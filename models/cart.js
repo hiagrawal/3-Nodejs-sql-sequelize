@@ -5,6 +5,7 @@ const fileNameWithPath = path.join(__dirname, '../', 'data' , 'cart.json');
 console.log(fileNameWithPath);
 
 module.exports = class Cart {
+
      static addToCart(id, price){
         //read cart file
         //analysizing if product already exists
@@ -58,6 +59,15 @@ module.exports = class Cart {
            
         });
 
+     }
+
+     static getCartItems(cb){
+        fs.readFile(fileNameWithPath, (err, fileContent) => {
+            if(err){
+                cb(null);
+            }
+            cb(JSON.parse(fileContent));
+        })
      }
 
 }

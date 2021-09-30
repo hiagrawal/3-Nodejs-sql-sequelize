@@ -1,0 +1,16 @@
+cart.json
+{"products":[{"id":"12345","qty":1},{"id":"0.5552358716317538","qty":2}],"totalPrice":50.00}
+
+cart.json
+{"products":[{"id":"0.5552358716317538","qty":2},{"id":"0.38416663730150136","qty":1}],"totalPrice":50}
+
+products.json
+[{"id":"0.38416663730150136","title":"Book 1","imageUrl":"https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png","price":"10.00","description":" Book 1 Description"},
+    {"id":"0.5552358716317538","title":"Book 2","imageUrl":"https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png","price":"20.00","description":" Book 2 Description"},
+    {"id":"12345","title":"Book 3","imageUrl":"https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png","price":"30.00","description":" Book 3 Description"}
+]
+
+cartProducts
+[{productData: {"id":"12345","title":"Book 3","imageUrl":"https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png","price":"30.00","description":" Book 3 Description"}, qty: 2},
+{productData: {"id":"0.5552358716317538","title":"Book 2","imageUrl":"https://cdn.pixabay.com/photo/2016/03/31/20/51/book-1296045_960_720.png","price":"20.00","description":" Book 2 Description"}, qty: 2}
+]
