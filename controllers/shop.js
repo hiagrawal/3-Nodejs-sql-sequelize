@@ -19,8 +19,13 @@ exports.showProductDetails = (req, res, next) => {
     //findById is passing prodId paramter and a async function which needs to be called when it gets value of product
     Product.findById(prodId, (product) => {
       console.log(product);
+      res.render('shop/product-detail' , {
+        product:product, 
+        pageTitle:product.title, 
+        path:'products'
+      })
     });
-    res.redirect('/');
+    //res.redirect('/');
 
 }
 
