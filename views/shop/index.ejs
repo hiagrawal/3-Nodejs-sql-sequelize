@@ -22,10 +22,17 @@
                         <p class="product__description"><%= product.description %></p>
                     </div>
                     <div class="card__actions">
-                        <form action="/cart" method="POST">
+                         <!-- <form action="/cart" method="POST">
                             <button class="btn" type="submit">Add to Cart</button>
                             <input type="hidden" name="productId" value="<%= product.id %>" />
-                        </form>  
+                        </form>  -->
+
+                        <!-- since we are calling add to cart multiple places, we can include it in common includes 
+                        This add-to-cart.ejs will not get the product.id since products is its own property 
+                        and product is its local variable inside the loop
+                        so to pass the same, we can pass it as a second paramter in include-->
+                        <%- include('../includes/add-to-cart.ejs', {product:product}) %>
+
                     </div>
                 </article>
                 <% } %>
