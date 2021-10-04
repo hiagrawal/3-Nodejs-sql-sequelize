@@ -30,16 +30,26 @@ exports.showProducts = (req, res, next) => {
 exports.showProductDetails = (req, res, next) => {
     const prodId = req.params.productId; //this productId will be the same name which is passed in shop route
     //findById is passing prodId paramter and a async function which needs to be called when it gets value of product
-    Product.findById(prodId, (product) => {
+    // Product.findById(prodId, (product) => {
+    //   console.log(product);
+    //   res.render('shop/product-detail' , {
+    //     product:product, 
+    //     pageTitle:product.title, 
+    //     path:'products'
+    //   })
+    // });
+    //res.redirect('/');
+
+    Product.findById(prodId)
+    .then(([product]) => {
       console.log(product);
       res.render('shop/product-detail' , {
-        product:product, 
+        product:product[0], 
         pageTitle:product.title, 
         path:'products'
       })
-    });
-    //res.redirect('/');
-
+    })
+    .catch(err => console.log(err));
 }
 
 exports.getIndex = (req, res, next) => {
