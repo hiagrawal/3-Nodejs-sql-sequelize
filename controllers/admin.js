@@ -13,16 +13,33 @@ exports.addProduct = (req, res, next) => {
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
-    const product = new Product(null, title, imageUrl, price, description);
+    //when using file storage
+    //const product = new Product(null, title, imageUrl, price, description);
     // product.save();
     // res.redirect('/');
 
-    //When using database
-    product.save()
-    .then(() => {
-        res.redirect('/');
+    //When using mysql database
+    // const product = new Product(null, title, imageUrl, price, description);
+    // product.save()
+    // .then(() => {
+    //     res.redirect('/');
+    // })
+    // .catch(err => console.log(err));
+
+    //When using sequelize
+    //create will craete a record in database and will return a promise
+    Product.create({
+        title:title,
+        price:price,
+        imageUrl:imageUrl,
+        description:description
+    }).then(result => {
+        //console.log(result);
+        console.log('Craeted Product');
+    }).catch(err => {
+        console.log(err);
     })
-    .catch(err => console.log(err));
+
 
 }
 
