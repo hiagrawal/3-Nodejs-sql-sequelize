@@ -67,10 +67,17 @@ exports.postCart = (req, res, next) => {
   Product.findById(prodId, (product) => {
     console.log(product);
     Cart.addToCart(prodId, product.price);
+    res.redirect('/cart');
   });
+}
 
-  res.redirect('/cart');
-
+exports.deleteCartProduct = (req, res, next) => {
+  const prodId = req.body.productId;
+  Product.findById(prodId, (product) => {
+    console.log(product);
+    Cart.deleteFromCart(prodId, product.price);
+    res.redirect('/cart');
+  });
 }
 
 exports.getOrders = (req, res, next) => {

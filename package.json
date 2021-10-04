@@ -9,6 +9,7 @@
     "express": "^4.17.1",
     "express-handlebars": "^3.0.2",
     "install": "^0.13.0",
+    "mysql2": "^2.3.0",
     "nodemon": "^2.0.12",
     "npm": "^7.20.2",
     "pug": "^3.0.2"

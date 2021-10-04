@@ -1,0 +1,26 @@
+Official Routing Docs: https://expressjs.com/en/guide/routing.html
+
+To use MySql Database:
+https://www.mysql.com/
+
+Under Downloads - > MySQL Community (GPL) Downloads » 
+there need to install:
+MySQL Community Server 
+MySQL Workbench
+
+or 
+
+can directly install 'MySQL Installer for Windows' which downloads both for windows
+
+https://dev.mysql.com/downloads/installer/
+https://dev.mysql.com/downloads/windows/installer/8.0.html
+Use legacy authencication method while installation
+
+
+Once installed, it will open the MySQL Workbench. If it shows a local instance running in MySql connections on load, then it is success
+Click on local instance and enter root password which gave while setup when choose legacy authentication
+
+Now create a new schema (shopping-website) and start working on it
+
+Now to connect our nodejs application to database, we need to install a package
+npm install --save mysql2
