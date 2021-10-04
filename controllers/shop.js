@@ -6,13 +6,25 @@ const Cart = require('../models/cart');
 exports.showProducts = (req, res, next) => {
     // const products = Product.fetchAll();
     // res.render('shop' , {prods:products, pageTitle:'My Shop', path:'shop',hasProducts: products.length>0, activeShop:true, productsCSS: true});  
-    Product.fetchAll((products) => {
+    
+    // Product.fetchAll((products) => {
+    //   res.render('shop/product-list' , {
+    //     prods:products, 
+    //     pageTitle:'All Products', 
+    //     path:'products'
+    //   })
+    // });
+
+    Product.fetchAll()
+    .then(([rows]) => {
       res.render('shop/product-list' , {
-        prods:products, 
-        pageTitle:'All Products', 
-        path:'products'
-      })
-    });
+            prods:rows, 
+            pageTitle:'All Products', 
+            path:'products'
+          })
+    })
+    .catch(err => console.log(err));
+
 }
 
 exports.showProductDetails = (req, res, next) => {
