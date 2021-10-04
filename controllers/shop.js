@@ -41,6 +41,7 @@ exports.showProducts = (req, res, next) => {
 
 exports.showProductDetails = (req, res, next) => {
     const prodId = req.params.productId; //this productId will be the same name which is passed in shop route
+
     //findById is passing prodId paramter and a async function which needs to be called when it gets value of product
     // Product.findById(prodId, (product) => {
     //   console.log(product);
@@ -52,12 +53,38 @@ exports.showProductDetails = (req, res, next) => {
     // });
     //res.redirect('/');
 
-    Product.findById(prodId)
-    .then(([product]) => {
-      console.log(product);
+    //when working with mysql
+    // Product.findById(prodId)
+    // .then(([product]) => {
+    //   console.log(product);
+    //   res.render('shop/product-detail' , {
+    //     product:product[0], 
+    //     pageTitle:product.title, 
+    //     path:'products'
+    //   })
+    // })
+    // .catch(err => console.log(err));
+
+    //when working with sequelize. findAll, findById are all predefined methods in sequelize which we can directly use
+    // Product.findByPk(prodId)
+    // .then(product => {
+    //   console.log(product);
+    //   res.render('shop/product-detail' , {
+    //     product:product, 
+    //     pageTitle:product.title, 
+    //     path:'products'
+    //   })
+    // })
+    // .catch(err => console.log(err));
+
+    //Although we dont need to use findAll here but just a usecase to show how to use 'where' clause
+    //it returns an array of objects even if there is single value returned
+    Product.findAll({where: {id: prodId}})
+    .then(products => {
+      console.log(products);
       res.render('shop/product-detail' , {
-        product:product[0], 
-        pageTitle:product.title, 
+        product:products[0], 
+        pageTitle:products[0].title, 
         path:'products'
       })
     })
