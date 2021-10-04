@@ -138,7 +138,11 @@ module.exports = class Product{
     }
 
     save(){
-       
+       //These question marks are used as a security pattern to avoid users to enter special data
+       //No Need to add id as it will be auto generated
+       return db.execute('INSERT INTO products (title, price, imageUrl, description) VALUES (?, ?, ?, ?)', 
+            [this.title, this.price, this.imageUrl, this.description]
+       );
     }
 
     static delete(id){
