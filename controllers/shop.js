@@ -15,15 +15,27 @@ exports.showProducts = (req, res, next) => {
     //   })
     // });
 
-    Product.fetchAll()
-    .then(([rows]) => {
+    // Product.fetchAll()
+    // .then(([rows]) => {
+    //   res.render('shop/product-list' , {
+    //         prods:rows, 
+    //         pageTitle:'All Products', 
+    //         path:'products'
+    //       })
+    // })
+    // .catch(err => console.log(err));
+
+    Product.findAll()
+    .then(products => {
       res.render('shop/product-list' , {
-            prods:rows, 
-            pageTitle:'All Products', 
-            path:'products'
-          })
+        prods:products, 
+        pageTitle:'All Products', 
+        path:'products'
+      })
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      console.log(err);
+    });
 
 }
 
@@ -53,6 +65,7 @@ exports.showProductDetails = (req, res, next) => {
 }
 
 exports.getIndex = (req, res, next) => {
+  //when working with fs
   // Product.fetchAll((products) => {
   //   res.render('shop/index' , {
   //     prods:products, 
@@ -61,15 +74,29 @@ exports.getIndex = (req, res, next) => {
   //   })
   // });
 
-  Product.fetchAll()
-  .then(([rows, fieldData]) => {
+  //when working with mysql
+  // Product.fetchAll()
+  // .then(([rows, fieldData]) => {
+  //   res.render('shop/index' , {
+  //         prods:rows, 
+  //         pageTitle:'My Shop', 
+  //         path:'shop'
+  //       })
+  // })
+  // .catch(err => console.log(err));
+
+  //when working with sequelize
+  Product.findAll()
+  .then(products => {
     res.render('shop/index' , {
-          prods:rows, 
-          pageTitle:'My Shop', 
-          path:'shop'
-        })
+      prods:products, 
+      pageTitle:'My Shop', 
+      path:'shop'
+    })
   })
-  .catch(err => console.log(err));
+  .catch(err => {
+    console.log(err);
+  });
 }
 
 //trying to get cart items and cart items products details with the id
