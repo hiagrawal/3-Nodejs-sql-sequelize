@@ -31,13 +31,23 @@ exports.showProductDetails = (req, res, next) => {
 }
 
 exports.getIndex = (req, res, next) => {
-  Product.fetchAll((products) => {
+  // Product.fetchAll((products) => {
+  //   res.render('shop/index' , {
+  //     prods:products, 
+  //     pageTitle:'My Shop', 
+  //     path:'shop'
+  //   })
+  // });
+
+  Product.fetchAll()
+  .then(([rows, fieldData]) => {
     res.render('shop/index' , {
-      prods:products, 
-      pageTitle:'My Shop', 
-      path:'shop'
-    })
-  });
+          prods:rows, 
+          pageTitle:'My Shop', 
+          path:'shop'
+        })
+  })
+  .catch(err => console.log(err));
 }
 
 //trying to get cart items and cart items products details with the id

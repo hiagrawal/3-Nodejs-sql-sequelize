@@ -1,5 +1,5 @@
 
-const fs = require('fs');
+/*const fs = require('fs');
 const path = require('path');
 
 const Cart = require('./cart');
@@ -70,7 +70,7 @@ module.exports = class Product{
         })
     }
 
-}
+}*/
 
 //Callback function concept
 //usually from a function, we return a value so we can get that value when calling that function
@@ -122,4 +122,35 @@ module.exports = class Product{
 //so we write a callback function and function needs to be called to get exceuted so will execute the callback function 
 //when we get the response and to call that function, will have to pass as a param
 
+//When connected with database: fetching and retrieving from database
 
+const db = require('../util/database');
+
+const Cart = require('./cart');
+
+module.exports = class Product{
+    constructor(id, title, imageUrl, price, description){
+        this.id = id;
+        this.title = title,
+        this.imageUrl = imageUrl,
+        this.price = price,
+        this.description = description
+    }
+
+    save(){
+       
+    }
+
+    static delete(id){
+       
+    }
+    
+    static fetchAll(){
+        return db.execute('SELECT * FROM products'); //Executing this query will return a promise
+    }
+
+    static findById(id){
+        
+    }
+
+}
