@@ -1,0 +1,11 @@
+
+create a new schema (shopping-website) and start working on it
+
+Open shopping website and right click on 'Tables' and craete a new table 'products' with id, title, price, description, imageUrl
+
+PK: PRimary key
+NN: Not null
+UQ: unique key
+UN: Unsigned means no negative value
+AI: Auto Increment
+

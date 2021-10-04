@@ -16,7 +16,15 @@ app.set('views',path.join(__dirname, 'views'));
 const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 
-db.execute('');
+//since we created a pool which returns a promise so we can use then and catch to access the same
+db.execute('SELECT * FROM products')
+.then(result => {
+    console.log(result); //it returns in an nested array so we can get the first element by result[0]
+    console.log(result[0]);
+})
+.catch(err => {
+    console.log(err);
+});
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
