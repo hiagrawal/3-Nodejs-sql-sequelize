@@ -122,9 +122,9 @@ module.exports = class Product{
 //so we write a callback function and function needs to be called to get exceuted so will execute the callback function 
 //when we get the response and to call that function, will have to pass as a param
 
-//When connected with database: fetching and retrieving from database
+//When connected with mysql database: fetching and retrieving from database
 
-const db = require('../util/database');
+/*const db = require('../util/database');
 
 const Cart = require('./cart');
 
@@ -157,4 +157,35 @@ module.exports = class Product{
         return db.execute('SELECT * FROM products WHERE products.id = ?', [id]);
     }
 
-}
+}*/
+
+//when using sequelize with mysql
+
+const Sequelize = require('sequelize');
+
+const sequelize = require('../util/database');
+
+//this is to create a model. 
+const Product = sequelize.define('productTable', {
+    id: {
+        type : Sequelize.INTEGER,
+        autoIncrement: true,
+        allowNull : false,
+        primaryKey : true
+      },
+      title: Sequelize.STRING,
+      price: {
+        type: Sequelize.DOUBLE,
+        allowNull: false
+      },
+      imageUrl: {
+        type: Sequelize.STRING,
+        allowNull : false
+      },
+      description:{
+        type: Sequelize.STRING,
+        allowNull: false
+      }
+    });
+    
+    module.exports = Product;

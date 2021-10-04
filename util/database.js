@@ -1,4 +1,4 @@
-const mysql = require('mysql2');
+/*const mysql = require('mysql2');
 
 //we can do mysql.createConnection as well here 
 //but in that case, for every query a new connection will be created and once the query is completed, will have to close the connection
@@ -15,4 +15,13 @@ const pool = mysql.createPool({
     password:'12345' //password is the pwd we can in configuration while installing the sql
 });
 
-module.exports = pool.promise();
+module.exports = pool.promise();*/
+
+const Sequelize = require('sequelize');
+
+const sequelize = new Sequelize('shopping-website', 'root', '12345', {
+    dialect: 'mysql',
+    host: 'localhost'
+});
+
+module.exports = sequelize;

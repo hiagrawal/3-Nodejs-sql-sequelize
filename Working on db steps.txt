@@ -9,3 +9,10 @@ UQ: unique key
 UN: Unsigned means no negative value
 AI: Auto Increment
 
+Sequelize:
+Sequelize is a third party package which allows us to use javascript objects 
+and methods provided by sequelize to interact with database instead of writing queries
+
+https://sequelize.org/master/manual/model-basics.html#data-types
+
+

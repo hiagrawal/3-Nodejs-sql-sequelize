@@ -24,3 +24,12 @@ Now create a new schema (shopping-website) and start working on it
 
 Now to connect our nodejs application to database, we need to install a package
 npm install --save mysql2
+
+Useful resource:
+
+Learn more about MySQL/ SQL in General: https://www.w3schools.com/sql/
+
+Learn more about the Node MySQL Package: https://github.com/sidorares/node-mysql2
+
+to install sequelize
+npm install --save sequelize
