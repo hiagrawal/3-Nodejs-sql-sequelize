@@ -8,14 +8,18 @@
         <% if (cartItems.length>0) { %>
             <ul>
                 <% cartItems.forEach(p =>{ %>
+
+                    <!-- When using sequelize -->
                     <li>
-                        <p><%= p.productData.title%> (<%= p.qty%>)</p>
+                        <p><%= p.title%> (<%= p.cartItem.quantity%>)</p>
                         <form action="/cart-delete-product" method="POST">
-                            <input type="hidden" name="productId" value="<%= p.productData.id %>" />
+                            <input type="hidden" name="productId" value="<%= p.id %>" />
                             <button class="btn" type="submit">Delete</button>
                         </form>
 
                     </li>
+
+
                 <% }) %>
             </ul>
 

@@ -166,11 +166,41 @@ exports.postCart = (req, res, next) => {
   const prodId = req.body.productId;
   console.log(prodId);
 
-  Product.findById(prodId, (product) => {
-    console.log(product);
-    Cart.addToCart(prodId, product.price);
+  //when using file system
+  // Product.findById(prodId, (product) => {
+  //   console.log(product);
+  //   Cart.addToCart(prodId, product.price);
+  //   res.redirect('/cart');
+  // });
+
+  //when using sequelize
+  let fetchedCart;
+  req.user.getCart()
+  .then(cart => {
+    fetchedCart = cart;
+    return cart.getProductTables({where: {id: prodId}})
+  })
+  .then(products => {
+    let product;
+    if(products.length >0){
+      product = products[0];
+    } 
+    let newQuantity = 1;
+    if(product){
+      const oldQuantity = product.cartItem.quantity;
+      newQuantity = oldQuantity + 1;
+      return fetchedCart.addProductTable(product, {through : {quantity: newQuantity}})
+    }
+    return Product.findByPk(prodId)
+    .then(product => {
+      return fetchedCart.addProductTable(product, {through : {quantity: newQuantity}})
+    })
+    .catch(err => console.log(err));
+  })
+  .then(() => {
     res.redirect('/cart');
-  });
+  })
+  .catch(err => console.log(err));
 }
 
 exports.deleteCartProduct = (req, res, next) => {
