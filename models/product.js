@@ -165,7 +165,7 @@ const Sequelize = require('sequelize');
 
 const sequelize = require('../util/database');
 
-//this is to create a model. 
+//this is to create a model (which in a way is a table in db with the name productTables (will add 's' to the name given)) 
 const Product = sequelize.define('productTable', {
     id: {
         type : Sequelize.INTEGER,
