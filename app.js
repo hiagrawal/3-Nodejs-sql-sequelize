@@ -33,6 +33,20 @@ const shopRoutes = require('./routes/shop');
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
+//This is just a middleware which wil get executed after server starts 
+//and after request has been hit that is after url is been hit in the browser
+//so always, when we do npm start, it starts the server and executes sequelize.sync code - craetes a user and listens to the server then
+//and when we hit url in the browser, application starts executing and executes middlewares 
+//which then executes this and hence will alawys find a user
+app.use((req, res, next) => {
+    User.findByPk(1)
+    .then(user => {
+        req.user = user; //we can add a new field in req object and access it anywhere
+        next(); //willl have to call next to execute the next middleware and continue with the application
+    })
+    .catch(err => console.log(err));
+})
+
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 
