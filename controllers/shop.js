@@ -205,11 +205,27 @@ exports.postCart = (req, res, next) => {
 
 exports.deleteCartProduct = (req, res, next) => {
   const prodId = req.body.productId;
-  Product.findById(prodId, (product) => {
-    console.log(product);
-    Cart.deleteFromCart(prodId, product.price);
+
+  //when using file system
+  // Product.findById(prodId, (product) => {
+  //   console.log(product);
+  //   Cart.deleteFromCart(prodId, product.price);
+  //   res.redirect('/cart');
+  // });
+
+  //when using sequelize
+  req.user.getCart()
+  .then(cart => {
+    return cart.getProductTables({where : {id: prodId}})
+  })
+  .then(products => {
+    const product = products[0];
+    return product.cartItem.destroy();
+  })
+  .then(() => {
     res.redirect('/cart');
-  });
+  })
+  .catch(err => console.log(err));
 }
 
 exports.getOrders = (req, res, next) => {
