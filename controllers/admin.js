@@ -105,8 +105,25 @@ exports.getEditProductPage = (req, res, next) => {
     // }) 
     
     //using sequelize
-    Product.findByPk(productId)
-    .then(product => {
+    // Product.findByPk(productId)
+    // .then(product => {
+    //     if(!product){
+    //         return res.redirect('/');
+    //     }
+    //     res.render('admin/edit-product' , {
+    //         pageTitle:'Edit Product', 
+    //         path:'admin/edit-product', //since no such path exists so no link will be highlighted
+    //         editMode: edit,
+    //         product:product
+    //     });
+    // })
+    // .catch(err => console.log(err));
+
+    //when using association, so need to get product details specific to user, for this can use method 'get<modeltablename>s'
+    //it will return an array even if a single product
+    req.user.getProductTables({where: {id:productId}})
+    .then(products => {
+        const product = products[0];
         if(!product){
             return res.redirect('/');
         }
@@ -164,7 +181,18 @@ exports.getProducts= (req, res, next) => {
     //   });
 
      //using sequelize
-      Product.findAll()
+    //   Product.findAll()
+    //   .then(products => {
+    //         res.render('admin/products' , {
+    //         prods:products, 
+    //         pageTitle:'Admin Products', 
+    //         path:'admin/products'
+    //         })
+    //    })
+    //   .catch(err => console.log(err));
+
+      //when association, will have to fetch all products pertaining to particular user
+      req.user.getProductTables()
       .then(products => {
             res.render('admin/products' , {
             prods:products, 
