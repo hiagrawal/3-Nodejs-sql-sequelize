@@ -36,6 +36,7 @@ exports.addProduct = (req, res, next) => {
     }).then(result => {
         //console.log(result);
         console.log('Craeted Product');
+        res.redirect('/admin/products');
     }).catch(err => {
         console.log(err);
     })
@@ -139,6 +140,33 @@ exports.getProducts= (req, res, next) => {
 
 exports.deleteProduct = (req, res, next) => {
     const id = req.body.id;
-    Product.delete(id);
-    res.redirect('/admin/products');
+
+    // Product.delete(id);
+    // res.redirect('/admin/products');
+
+    //using sequelize
+    //sequelize gives us destroy method to destroy/delete any data
+    //can use it in two ways
+    //1. can call destroy on Product model and write the where clause to give the specific product
+    //2. can find the product first and call destroy directly on the product
+    //both ways are perfectly fine and good to use
+
+    //way 1
+    // Product.destroy({where: {id:id}})
+    // .then(result => {
+    //     console.log("Product Deleted");
+    //     res.redirect('/admin/products');
+    // })
+    // .catch(err => console.log(err));
+
+    //way 2
+    Product.findByPk(id)
+    .then(product => {
+        return product.destroy();
+    })
+    .then(result => {
+        console.log("Product Deleted");
+        res.redirect('/admin/products');
+    })
+    .catch(err => console.log(err));
 }
