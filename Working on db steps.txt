@@ -15,4 +15,7 @@ and methods provided by sequelize to interact with database instead of writing q
 
 https://sequelize.org/master/manual/model-basics.html#data-types
 
+Associations:
+https://sequelize.org/master/manual/assocs.html
+
 

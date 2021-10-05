@@ -7,6 +7,8 @@ const errorController = require('./controllers/error');
 // const db = require('./util/database');
 
 const sequelize = require('./util/database');
+const Product = require('./models/product');
+const User  = require('./models/user');
 
 const app = express();
 
@@ -36,8 +38,19 @@ app.use(shopRoutes);
 
 app.use(errorController.get404);
 
+//We are defining associations this way between Product and User which internally sets foreign key that we define manually in sql
+//We can define optional paramters but that is not necessary
+//we are defining constraints and onDelete which indicates if user is deleted and it's corresponding products should also be deleted
+//can see all this associations and options here: https://sequelize.org/master/manual/assocs.html
+Product.belongsTo(User, {constraints: true, onDelete: 'CASCADE'});
+User.hasMany(Product);
+
+
 //sequelize.sync syncs all models (that we create using sequelize.define) with the database by creating tables
-sequelize.sync()
+//since server is up and product table has already been created so to delete the same and create new tables products and users 
+//which has associates, we use force true. This will never be needed in production. 
+//this will now also create one more column 'userId' in producttables table as a foreign key
+sequelize.sync({force: true})
 .then(result => {
     //console.log(result);
     app.listen(3000); //listen to server only when we are able to connect to db
