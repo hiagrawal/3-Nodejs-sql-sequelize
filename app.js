@@ -11,6 +11,8 @@ const Product = require('./models/product');
 const User  = require('./models/user');
 const Cart = require('./models/cart');
 const CartItem = require('./models/cart-item');
+const Order = require('./models/order');
+const OrderItem = require('./models/order-item');
 
 const app = express();
 
@@ -66,6 +68,10 @@ Cart.belongsTo(User);
 Cart.belongsToMany(Product, {through: CartItem});
 Product.belongsToMany(Cart , {through: CartItem});
 
+Order.belongsTo(User);
+User.hasMany(Order);
+Order.belongsToMany(Product, {through: OrderItem});
+
 
 //sequelize.sync syncs all models (that we create using sequelize.define) with the database by creating tables
 //since server is up and product table has already been created so to delete the same and create new tables products and users 
@@ -85,9 +91,7 @@ Product.belongsToMany(Cart , {through: CartItem});
 //we are creating a dummy user when server starts that is on npm start
 //on first run, it will not find user and create one and on subsequent starts, it will have a user
 
-//when define any new association and force sync, it will only delete tables and recreates them which has association effect
-//rest all tables and data will remain the same
-//like whe we defined cart and cartItem, product and user tabel and it's data remained the same
+//when define any new association and force sync, it will drop all tables and recreates them with the association effect
 sequelize
 //.sync({force: true}) //force should not be run  all time else it will delete all data and tables and recreate them
 .sync()
