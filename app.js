@@ -89,8 +89,8 @@ Product.belongsToMany(Cart , {through: CartItem});
 //rest all tables and data will remain the same
 //like whe we defined cart and cartItem, product and user tabel and it's data remained the same
 sequelize
-.sync({force: true}) //force should not be run  all time else it will delete all data and tables and recreate them
-//.sync()
+//.sync({force: true}) //force should not be run  all time else it will delete all data and tables and recreate them
+.sync()
 .then(result => {
     return User.findByPk(1);
 })
@@ -102,7 +102,11 @@ sequelize
 })
 .then(user => {
     console.log(user);
-    app.listen(3000); //start server only when created/found a user
+    return user.createCart();
+    //app.listen(3000); //start server only when created/found a user
+})
+.then(cart => {
+    app.listen(3000);
 })
 .catch(err =>{
     console.log(err);
