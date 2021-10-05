@@ -13,6 +13,8 @@ Sequelize:
 Sequelize is a third party package which allows us to use javascript objects 
 and methods provided by sequelize to interact with database instead of writing queries
 
+Sequelize Official Docs: http://docs.sequelizejs.com/
+
 https://sequelize.org/master/manual/model-basics.html#data-types
 
 Associations:
