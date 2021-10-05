@@ -13,6 +13,7 @@ exports.addProduct = (req, res, next) => {
     const imageUrl = req.body.imageUrl;
     const price = req.body.price;
     const description = req.body.description;
+
     //when using file storage
     //const product = new Product(null, title, imageUrl, price, description);
     // product.save();
@@ -28,7 +29,44 @@ exports.addProduct = (req, res, next) => {
 
     //When using sequelize
     //create will craete a record in database and will return a promise
-    Product.create({
+    // Product.create({
+    //     title:title,
+    //     price:price,
+    //     imageUrl:imageUrl,
+    //     description:description
+    // }).then(result => {
+    //     //console.log(result);
+    //     console.log('Craeted Product');
+    //     res.redirect('/admin/products');
+    // }).catch(err => {
+    //     console.log(err);
+    // })
+
+    //when using associations that is product added should be associated to a user
+    //2 ways of doing it
+    //1. while creating, pass one more paramter userId which is created in producttable after association
+    //2. using a so called magic method which sequelize provides as we define association 
+    //so since we want to create a record in products table associated with user, 
+    //sequelize provides us 'create<modelname>' method (table name given in the product model) 
+    //to create a record automatically associated with user
+
+    //way 1
+    // Product.create({
+    //     title:title,
+    //     price:price,
+    //     imageUrl:imageUrl,
+    //     description:description,
+    //     userId: req.user.id
+    // }).then(result => {
+    //     //console.log(result);
+    //     console.log('Craeted Product');
+    //     res.redirect('/admin/products');
+    // }).catch(err => {
+    //     console.log(err);
+    // })
+
+    //way2
+    req.user.createProductTable({
         title:title,
         price:price,
         imageUrl:imageUrl,
@@ -40,7 +78,6 @@ exports.addProduct = (req, res, next) => {
     }).catch(err => {
         console.log(err);
     })
-
 
 }
 
