@@ -50,10 +50,33 @@ User.hasMany(Product);
 //since server is up and product table has already been created so to delete the same and create new tables products and users 
 //which has associates, we use force true. This will never be needed in production. 
 //this will now also create one more column 'userId' in producttables table as a foreign key
-sequelize.sync({force: true})
+
+// sequelize
+// .sync({force: true}) //force should not be run  all time else it will delete all data and tables and recreate them
+// .then(result => {
+//     //console.log(result);
+//     app.listen(3000); //listen to server only when we are able to connect to db
+// })
+// .catch(err =>{
+//     console.log(err);
+// });
+
+//we are creating a dummy user when server starts that is on npm start
+//on first run, it will not find user and create one and on subsequent starts, it will have a user
+sequelize
+.sync() //force should not be run  all time else it will delete all data and tables and recreate them
 .then(result => {
-    //console.log(result);
-    app.listen(3000); //listen to server only when we are able to connect to db
+    return User.findByPk(1);
+})
+.then(user => {
+    if(!user){
+        User.create({name: 'Hina', email: 'test@test.com'})
+    }
+    return user;
+})
+.then(user => {
+    console.log(user);
+    app.listen(3000); //start server only when created/found a user
 })
 .catch(err =>{
     console.log(err);
